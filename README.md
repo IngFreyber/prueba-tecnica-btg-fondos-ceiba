@@ -2,6 +2,9 @@
 
 Aplicación web para el **manejo de Fondos (FPV/FIC)** que permite visualizar fondos, suscribirse, cancelar participación y consultar el historial de transacciones.
 
+##Video de funcionamiento:
+https://jam.dev/c/815fcfa2-5934-49b9-94cf-03eebee75b75
+
 ## Requisitos cubiertos
 
 ### Funcionales
