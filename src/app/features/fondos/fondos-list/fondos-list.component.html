@@ -1,0 +1,65 @@
+<div class="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+  <header class="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="mx-auto max-w-4xl px-4 py-4 sm:px-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <a routerLink="/fondos" class="flex items-center gap-3 shrink-0">
+          <img src="assets/logo-ceiba.png" alt="Ceiba" class="h-8 sm:h-9 w-auto object-contain" />
+        </a>
+        <h1 class="text-xl font-bold text-zinc-900 dark:text-white hidden sm:block">BTG Fondos (FPV/FIC)</h1>
+      </div>
+      <nav class="flex gap-4">
+        <a routerLink="/fondos" routerLinkActive="font-semibold text-indigo-600" class="text-zinc-600 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400">Fondos</a>
+        <a routerLink="/historial" routerLinkActive="font-semibold text-indigo-600" class="text-zinc-600 dark:text-zinc-400 hover:text-indigo-600 dark:hover:text-indigo-400">Historial</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-4 py-6 sm:px-6">
+    <div class="mb-6 max-w-xs">
+      <app-balance-display />
+    </div>
+
+    <h2 class="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Fondos disponibles</h2>
+
+    @if (loading()) {
+      <app-loading-spinner />
+    } @else if (error()) {
+      <p class="text-red-600 dark:text-red-400">{{ error() }}</p>
+    } @else {
+      <ul class="grid gap-4 sm:grid-cols-1 lg:grid-cols-2">
+        @for (f of funds(); track f.id) {
+          <li>
+            <app-fund-card
+              [fund]="f"
+              (subscribe)="openSubscribe(f)"
+              (cancel)="confirmCancel(f)"
+            />
+          </li>
+        }
+      </ul>
+    }
+  </main>
+</div>
+
+@if (showSubscribeDialog()) {
+  <app-subscribe-dialog
+    [fund]="selectedFund()"
+    (close)="closeSubscribe()"
+    (subscribed)="onSubscribed()"
+  />
+}
+
+@if (showCancelConfirm()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" (click)="closeCancelConfirm()" role="dialog">
+    <div class="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl max-w-sm w-full p-6" (click)="$event.stopPropagation()">
+      <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Cancelar suscripción</h3>
+      <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+        ¿Desea cancelar su suscripción en {{ fundToCancel()?.name }}?
+      </p>
+      <div class="mt-6 flex gap-3">
+        <button type="button" (click)="closeCancelConfirm()" class="flex-1 rounded-lg border border-zinc-300 dark:border-zinc-600 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">No</button>
+        <button type="button" (click)="doCancel()" class="flex-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700">Sí, cancelar</button>
+      </div>
+    </div>
+  </div>
+}

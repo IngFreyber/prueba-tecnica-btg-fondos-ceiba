@@ -1,0 +1,35 @@
+/* Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Globales */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Toasts: margen superior y estilos por tipo */
+.mat-mdc-snack-bar-container.toast-success {
+  margin-top: 5rem;
+  background-color: #065f46;
+  border: 1px solid #065f46;
+  color: #065f46;
+}
+.mat-mdc-snack-bar-container.toast-success .mat-mdc-snack-bar-label,
+.mat-mdc-snack-bar-container.toast-success .mdc-snackbar__label {
+  color: #065f46;
+}
+.mat-mdc-snack-bar-container.toast-success .mat-mdc-button {
+  color: #047857;
+}
+
+.mat-mdc-snack-bar-container.toast-cancel {
+  margin-top: 5rem;
+  background-color: #991b1b;
+  border: 1px solid #991b1b;
+  color: #991b1b;
+}
+.mat-mdc-snack-bar-container.toast-cancel .mat-mdc-snack-bar-label,
+.mat-mdc-snack-bar-container.toast-cancel .mdc-snackbar__label {
+  color: #991b1b;
+}
+.mat-mdc-snack-bar-container.toast-cancel .mat-mdc-button {
+  color: #b91c1c;
+}
